@@ -384,13 +384,13 @@ class DatabaseService {
 
   Future<QuizSession> completeQuizSession(String sessionId) async {
     try {
-
-      final response = await _client.functions.invoke(
+      // Call Edge Function to complete quiz and calculate score
+      await _client.functions.invoke(
         'submit-quiz',
-        body: {'session_id': sessionId},
+        body: {'sessionId': sessionId},
       );
 
-
+      // Fetch updated session
       final sessionResponse = await _client
           .from('quiz_sessions')
           .select()

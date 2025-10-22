@@ -258,3 +258,57 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE TRIGGER on_auth_user_created
     AFTER INSERT ON auth.users
     FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
+-- Function to calculate quiz score (used by Edge Function)
+CREATE OR REPLACE FUNCTION public.calculate_quiz_score(session_id_param UUID)
+RETURNS JSON AS $$
+DECLARE
+    v_total_score INTEGER := 0;
+    v_total_possible INTEGER := 0;
+    v_answer RECORD;
+BEGIN
+    -- Update each answer with correctness and points
+    FOR v_answer IN
+        SELECT sa.id, sa.selected_option_id, q.points
+        FROM student_answers sa
+        JOIN questions q ON sa.question_id = q.id
+        WHERE sa.session_id = session_id_param
+    LOOP
+        -- Check if answer is correct
+        UPDATE student_answers sa
+        SET
+            is_correct = COALESCE(
+                (SELECT ao.is_correct
+                 FROM answer_options ao
+                 WHERE ao.id = v_answer.selected_option_id),
+                false
+            ),
+            points_earned = CASE
+                WHEN COALESCE(
+                    (SELECT ao.is_correct
+                     FROM answer_options ao
+                     WHERE ao.id = v_answer.selected_option_id),
+                    false
+                ) THEN v_answer.points
+                ELSE 0
+            END
+        WHERE sa.id = v_answer.id;
+    END LOOP;
+
+    -- Calculate total score
+    SELECT COALESCE(SUM(points_earned), 0) INTO v_total_score
+    FROM student_answers
+    WHERE session_id = session_id_param;
+
+    -- Calculate total possible score
+    SELECT COALESCE(SUM(q.points), 0) INTO v_total_possible
+    FROM questions q
+    WHERE q.quiz_id = (SELECT quiz_id FROM quiz_sessions WHERE id = session_id_param);
+
+    -- Return score and total
+    RETURN json_build_object(
+        'score', v_total_score,
+        'total', v_total_possible
+    );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
