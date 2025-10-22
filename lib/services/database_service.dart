@@ -359,12 +359,15 @@ class DatabaseService {
     try {
       final response = await _client
           .from('student_answers')
-          .upsert({
-            'session_id': sessionId,
-            'question_id': questionId,
-            'selected_option_id': selectedOptionId,
-            'text_answer': textAnswer,
-          })
+          .upsert(
+            {
+              'session_id': sessionId,
+              'question_id': questionId,
+              'selected_option_id': selectedOptionId,
+              'text_answer': textAnswer,
+            },
+            onConflict: 'session_id,question_id',
+          )
           .select()
           .single();
 
