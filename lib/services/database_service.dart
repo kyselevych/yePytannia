@@ -359,7 +359,7 @@ class DatabaseService {
     try {
       final response = await _client
           .from('student_answers')
-          .insert({
+          .upsert({
             'session_id': sessionId,
             'question_id': questionId,
             'selected_option_id': selectedOptionId,
