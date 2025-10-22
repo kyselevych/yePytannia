@@ -27,7 +27,7 @@ class FileService {
   }
 
 
-  Future<String> uploadFile({
+  Future<Map<String, String>> uploadFile({
     required File file,
     required String fileName,
     required String userId,
@@ -46,7 +46,10 @@ class FileService {
         ),
       );
 
-      return _client.storage.from(bucketName).getPublicUrl(storagePath);
+      return {
+        'storagePath': storagePath,
+        'publicUrl': _client.storage.from(bucketName).getPublicUrl(storagePath),
+      };
     } catch (e) {
       rethrow;
     }

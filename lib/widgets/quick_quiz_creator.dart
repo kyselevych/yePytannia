@@ -89,7 +89,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
       }
 
 
-      final fileUrl = await _fileService.uploadFile(
+      final uploadResult = await _fileService.uploadFile(
         file: _selectedFile!,
         fileName: _fileName!,
         userId: userId,
@@ -104,12 +104,12 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
       final quiz = await _databaseService.createQuiz(
         classId: widget.classModel.id,
         title: _titleController.text.trim(),
-        sourceFileUrl: fileUrl,
+        sourceFileUrl: uploadResult['publicUrl']!,
       );
 
 
       final questionCount = await _fileService.generateQuestions(
-        fileUrl: fileUrl,
+        fileUrl: uploadResult['storagePath']!,
         quizId: quiz.id,
         questionCount: _questionCount,
       );

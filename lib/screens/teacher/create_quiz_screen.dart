@@ -75,31 +75,34 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
       final userId = authProvider.userProfile?.id;
       if (userId == null) throw Exception('User not authenticated');
 
-      String? fileUrl;
+      String? publicUrl;
+      String? storagePath;
 
 
       if (_selectedFile != null && _selectedMethod == QuizCreationMethod.aiGeneration) {
-        fileUrl = await _fileService.uploadFile(
+        final uploadResult = await _fileService.uploadFile(
           file: _selectedFile!,
           fileName: _selectedFile!.path.split('/').last,
           userId: userId,
         );
+        publicUrl = uploadResult['publicUrl'];
+        storagePath = uploadResult['storagePath'];
       }
 
 
       final quiz = await _databaseService.createQuiz(
         classId: widget.classModel.id,
         title: _titleController.text.trim(),
-        sourceFileUrl: fileUrl,
+        sourceFileUrl: publicUrl,
       );
 
-      if (_selectedMethod == QuizCreationMethod.aiGeneration && fileUrl != null) {
+      if (_selectedMethod == QuizCreationMethod.aiGeneration && storagePath != null) {
 
         setState(() => _isGeneratingQuestions = true);
 
         try {
           final questionCount = await _fileService.generateQuestions(
-            fileUrl: fileUrl,
+            fileUrl: storagePath,
             quizId: quiz.id,
           );
 
