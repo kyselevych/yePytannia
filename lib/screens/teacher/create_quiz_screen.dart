@@ -98,15 +98,15 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
         setState(() => _isGeneratingQuestions = true);
 
         try {
-          final questions = await _fileService.generateQuestions(
+          final questionCount = await _fileService.generateQuestions(
             fileUrl: fileUrl,
             quizId: quiz.id,
           );
 
-          if (questions.isNotEmpty && mounted) {
+          if (questionCount > 0 && mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Згенеровано ${questions.length} питань з вашого файлу!'),
+                content: Text('Згенеровано $questionCount питань з вашого файлу!'),
                 backgroundColor: Colors.green,
               ),
             );

@@ -53,7 +53,7 @@ class FileService {
   }
 
 
-  Future<List<Map<String, dynamic>>> generateQuestions({
+  Future<int> generateQuestions({
     required String fileUrl,
     required String quizId,
     int questionCount = 10,
@@ -62,16 +62,23 @@ class FileService {
       final response = await _client.functions.invoke(
         'generate-questions',
         body: {
-          'file_url': fileUrl,
-          'quiz_id': quizId,
-          'question_count': questionCount,
+          'fileUrl': fileUrl,
+          'quizId': quizId,
         },
       );
 
-      if (response.data != null && response.data['questions'] != null) {
-        return List<Map<String, dynamic>>.from(response.data['questions']);
+      if (response.data != null && response.data['success'] == true) {
+        // Parse message to get question count: "Generated X questions"
+        final message = response.data['message'] as String?;
+        if (message != null) {
+          final match = RegExp(r'Generated (\d+) questions').firstMatch(message);
+          if (match != null) {
+            return int.parse(match.group(1)!);
+          }
+        }
+        return questionCount; // Default if can't parse
       }
-      return [];
+      return 0;
     } catch (e) {
       rethrow;
     }

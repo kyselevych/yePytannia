@@ -108,13 +108,13 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
       );
 
 
-      final questions = await _fileService.generateQuestions(
+      final questionCount = await _fileService.generateQuestions(
         fileUrl: fileUrl,
         quizId: quiz.id,
         questionCount: _questionCount,
       );
 
-      if (questions.isEmpty) {
+      if (questionCount == 0) {
         throw Exception('З файлу не було згенеровано жодного питання');
       }
 
@@ -126,7 +126,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
       setState(() => _isGenerating = false);
 
       _showSuccess(
-        'Вікторину успішно створено з ${questions.length} питаннями!',
+        'Тест успішно створено з $questionCount питаннями!',
       );
 
 
