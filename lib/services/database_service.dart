@@ -357,17 +357,22 @@ class DatabaseService {
     String? textAnswer,
   }) async {
     try {
+      // Delete existing answer if any
+      await _client
+          .from('student_answers')
+          .delete()
+          .eq('session_id', sessionId)
+          .eq('question_id', questionId);
+
+      // Insert new answer
       final response = await _client
           .from('student_answers')
-          .upsert(
-            {
-              'session_id': sessionId,
-              'question_id': questionId,
-              'selected_option_id': selectedOptionId,
-              'text_answer': textAnswer,
-            },
-            onConflict: 'session_id,question_id',
-          )
+          .insert({
+            'session_id': sessionId,
+            'question_id': questionId,
+            'selected_option_id': selectedOptionId,
+            'text_answer': textAnswer,
+          })
           .select()
           .single();
 
