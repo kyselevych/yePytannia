@@ -32,8 +32,8 @@ class AppStrings {
   static const String myClasses = 'Мої класи';
   static const String refresh = 'Оновити';
   static const String welcome = 'Привіт';
-  static const String teacherWelcome = 'Керуйте своїми класами та створюйте цікаві квізи';
-  static const String studentWelcome = 'Приєднуйтеся до класів та проходьте квізи, щоб перевірити свої знання';
+  static const String teacherWelcome = 'Керуйте своїми класами та створюйте цікаві тести';
+  static const String studentWelcome = 'Приєднуйтеся до класів та проходьте тести, щоб перевірити свої знання';
   static const String loading = 'Завантаження';
   static const String loadingProfile = 'Завантаження профілю...';
   static const String creatingProfile = 'Зачекайте, створюємо ваш профіль';
@@ -68,16 +68,16 @@ class AppStrings {
   static const String joinedSuccessfully = 'Успішно приєдналися до';
 
 
-  static const String createQuiz = 'Створити квіз';
-  static const String newQuiz = 'Новий квіз';
-  static const String quizTitle = 'Назва квізу';
+  static const String createQuiz = 'Створити тест';
+  static const String newQuiz = 'Новий тест';
+  static const String quizTitle = 'Назва тесту';
   static const String quizTitleHint = 'напр., Контрольна робота розділ 1';
-  static const String enterQuizTitle = 'Будь ласка, введіть назву квізу';
+  static const String enterQuizTitle = 'Будь ласка, введіть назву тесту';
   static const String quizTitleMinLength = 'Назва має містити принаймні 3 символи';
   static const String description = 'Опис';
   static const String descriptionOptional = 'Опис (необов\'язково)';
-  static const String descriptionHint = 'Короткий опис квізу...';
-  static const String creatingQuizFor = 'Створення квізу для:';
+  static const String descriptionHint = 'Короткий опис тесту...';
+  static const String creatingQuizFor = 'Створення тесту для:';
 
 
   static const String howToAddQuestions = 'Як ви хочете додати питання?';
@@ -86,7 +86,7 @@ class AppStrings {
   static const String manualCreation = 'Ручне створення';
   static const String manualCreationDesc = 'Створіть питання вручну з повним контролем';
   static const String skipForNow = 'Пропустити зараз';
-  static const String skipForNowDesc = 'Створіть квіз і додайте питання пізніше';
+  static const String skipForNowDesc = 'Створіть тест і додайте питання пізніше';
 
 
   static const String uploadStudyMaterial = 'Завантажити матеріали';
@@ -99,37 +99,37 @@ class AppStrings {
   static const String uploadFileRequired = 'Будь ласка, завантажте файл для генерації питань ШІ';
 
 
-  static const String createQuizWithAI = 'Створити квіз з ШІ';
-  static const String createQuizAndAddQuestions = 'Створити квіз та додати питання';
+  static const String createQuizWithAI = 'Створити тест з ШІ';
+  static const String createQuizAndAddQuestions = 'Створити тест та додати питання';
   static const String uploadingFile = 'Завантаження файлу...';
   static const String generatingQuestions = 'Генерація питань...';
   static const String generatingQuestionsWait = 'Це може зайняти 30-60 секунд залежно від розміру файлу...';
   static const String generatedQuestions = 'Згенеровано питань';
   static const String fromYourFile = 'з вашого файлу!';
-  static const String quizCreatedButGenerationFailed = 'Квіз створено, але генерація питань не вдалася';
-  static const String quizCreatedSuccessfully = 'Квіз створено успішно!';
-  static const String quizCreatedWithQuestions = 'Квіз створено з питаннями успішно!';
+  static const String quizCreatedButGenerationFailed = 'Тест створено, але генерація питань не вдалася';
+  static const String quizCreatedSuccessfully = 'Тест створено успішно!';
+  static const String quizCreatedWithQuestions = 'Тест створено з питаннями успішно!';
   static const String noQuestionsGenerated = 'Не вдалося згенерувати питання з файлу';
 
 
-  static const String quizSettings = 'Налаштування квізу';
+  static const String quizSettings = 'Налаштування тесту';
   static const String questions = 'Питання';
   static const String questionCount = 'Кількість питань';
   static const String timeLimit = 'Ліміт часу';
   static const String minutes = 'хв';
-  static const String makeActiveImmediately = 'Зробити квіз активним негайно';
-  static const String studentsCanStartNow = 'Студенти зможуть почати проходження квізу одразу';
+  static const String makeActiveImmediately = 'Зробити тест активним негайно';
+  static const String studentsCanStartNow = 'Студенти зможуть почати проходження тесту одразу';
 
 
-  static const String quickQuizCreator = 'Швидке створення квізу';
-  static const String quickQuizDesc = 'Завантажте PDF або DOCX файл для автоматичної генерації квізу за допомогою ШІ';
+  static const String quickQuizCreator = 'Швидке створення тесту';
+  static const String quickQuizDesc = 'Завантажте PDF або DOCX файл для автоматичної генерації тесту за допомогою ШІ';
   static const String close = 'Закрити';
 
 
-  static const String takeQuiz = 'Пройти квіз';
-  static const String submitQuiz = 'Подати квіз';
-  static const String submit = 'Подати';
-  static const String submitConfirm = 'Ви впевнені, що хочете подати квіз?';
+  static const String takeQuiz = 'Пройти тест';
+  static const String submitQuiz = 'Відправити тест';
+  static const String submit = 'Відправити';
+  static const String submitConfirm = 'Ви впевнені, що хочете відправити тест?';
   static const String answered = 'Відповіли';
   static const String unansweredWillBeIncorrect = 'Питання без відповідей будуть позначені як неправильні.';
   static const String previous = 'Попереднє';
@@ -141,23 +141,23 @@ class AppStrings {
   static const String typeAnswerHere = 'Введіть вашу відповідь тут...';
 
 
-  static const String quizCompleted = 'Квіз завершено!';
+  static const String quizCompleted = 'Тест завершено!';
   static const String yourScore = 'Ваш результат';
   static const String continue_ = 'Продовжити';
 
 
   static const String errorLoadingQuestions = 'Помилка завантаження питань';
-  static const String errorSubmittingQuiz = 'Помилка подання квізу';
-  static const String noQuestionsAvailable = 'Немає доступних питань для цього квізу.';
+  static const String errorSubmittingQuiz = 'Помилка відправлення тесту';
+  static const String noQuestionsAvailable = 'Немає доступних питань для цього тесту.';
 
 
   static const String draft = 'Чернетка';
   static const String active = 'Активний';
   static const String completed = 'Завершено';
-  static const String activeQuiz = 'активний квіз';
-  static const String activeQuizzes = 'активні квізи';
-  static const String activeQuizzesPlural = 'активних квізів';
-  static const String noActiveQuizzes = 'Немає активних квізів';
+  static const String activeQuiz = 'активний тест';
+  static const String activeQuizzes = 'активні тести';
+  static const String activeQuizzesPlural = 'активних тестів';
+  static const String noActiveQuizzes = 'Немає активних тестів';
 
 
   static const String question = 'Питання';
@@ -203,7 +203,7 @@ class AppStrings {
 
   static const String errorOccurred = 'Виникла помилка';
   static const String errorPickingFile = 'Помилка вибору файлу';
-  static const String errorCreatingQuiz = 'Помилка створення квізу';
+  static const String errorCreatingQuiz = 'Помилка створення тесту';
   static const String errorUploadingFile = 'Помилка завантаження файлу';
   static const String tryAgain = 'Спробуйте ще раз';
   static const String userNotAuthenticated = 'Користувач не авторизований';

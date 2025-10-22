@@ -75,7 +75,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
     }
 
     if (_titleController.text.trim().isEmpty) {
-      _showError('Будь ласка, введіть назву квізи');
+      _showError('Будь ласка, введіть назву тесту');
       return;
     }
 
@@ -140,7 +140,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
         _isUploading = false;
         _isGenerating = false;
       });
-      _showError('Помилка створення квізи: $e');
+      _showError('Помилка створення тесту: $e');
     }
   }
 
@@ -198,7 +198,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Швидке створення квізи',
+                    'Швидке створення тесту',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -213,7 +213,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Завантажте PDF або DOCX файл для автоматичної генерації квізи за допомогою ШІ',
+              'Завантажте PDF або DOCX файл для автоматичної генерації тесту за допомогою ШІ',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Colors.grey[600],
               ),
@@ -309,7 +309,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
 
 
               Text(
-                'Налаштування квізи',
+                'Налаштування тесту',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -320,8 +320,8 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(
-                  labelText: 'Назва квізи',
-                  hintText: 'Введіть назву квізи...',
+                  labelText: 'Назва тесту',
+                  hintText: 'Введіть назву тесту...',
                   border: OutlineInputBorder(),
                 ),
                 textCapitalization: TextCapitalization.words,
@@ -333,7 +333,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
                 controller: _descriptionController,
                 decoration: const InputDecoration(
                   labelText: 'Опис (необов\'язково)',
-                  hintText: 'Короткий опис квізи...',
+                  hintText: 'Короткий опис тесту...',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 2,
@@ -451,8 +451,8 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
 
 
               CheckboxListTile(
-                title: const Text('Активувати квізу одразу'),
-                subtitle: const Text('Студенти зможуть почати проходження квізи відразу'),
+                title: const Text('Активувати тест одразу'),
+                subtitle: const Text('Студенти зможуть почати проходження тесту відразу'),
                 value: _makeActive,
                 onChanged: (value) {
                   setState(() {
@@ -486,7 +486,7 @@ class _QuickQuizCreatorState extends State<QuickQuizCreator> {
                         ? 'Завантаження файлу...'
                         : _isGenerating
                             ? 'Генерація питань...'
-                            : 'Створити квізу з ШІ',
+                            : 'Створити тест з ШІ',
                   ),
                   style: FilledButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),

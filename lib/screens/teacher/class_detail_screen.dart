@@ -43,7 +43,7 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
       setState(() => _isLoading = false);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Помилка завантаження квіз: $e')),
+          SnackBar(content: Text('Помилка завантаження тестів: $e')),
         );
       }
     }
@@ -165,19 +165,23 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
 
 
           if (_showQuickCreator)
-            QuickQuizCreator(
-              classModel: widget.classModel,
-              onQuizCreated: () {
-                _loadQuizzes();
-                setState(() {
-                  _showQuickCreator = false;
-                });
-              },
-              onCancel: () {
-                setState(() {
-                  _showQuickCreator = false;
-                });
-              },
+            Expanded(
+              child: SingleChildScrollView(
+                child: QuickQuizCreator(
+                  classModel: widget.classModel,
+                  onQuizCreated: () {
+                    _loadQuizzes();
+                    setState(() {
+                      _showQuickCreator = false;
+                    });
+                  },
+                  onCancel: () {
+                    setState(() {
+                      _showQuickCreator = false;
+                    });
+                  },
+                ),
+              ),
             )
           else
             Card(
@@ -187,8 +191,8 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
                   Icons.auto_awesome,
                   color: Theme.of(context).primaryColor,
                 ),
-                title: const Text('Швидке створення квізи'),
-                subtitle: const Text('Завантажте файл і створіть квізу з ШІ'),
+                title: const Text('Швидке створення тесту'),
+                subtitle: const Text('Завантажте файл і створіть тест з ШІ'),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () {
                   setState(() {
@@ -222,7 +226,7 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
                             });
                           },
                           icon: const Icon(Icons.auto_awesome),
-                          label: const Text('ШІ квіза'),
+                          label: const Text('ШІ тест'),
                         ),
                         const SizedBox(width: 8),
                       ],
@@ -249,7 +253,7 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _createQuiz,
         icon: const Icon(Icons.quiz),
-        label: const Text('Створити квізу'),
+        label: const Text('Створити тест'),
       ),
     );
   }
@@ -266,14 +270,14 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Поки немає квіз',
+            'Поки немає тестів',
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               color: Colors.grey[600],
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Створіть свою першу квізу для цього класу',
+            'Створіть свій перший тест для цього класу',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Colors.grey[500],
             ),
