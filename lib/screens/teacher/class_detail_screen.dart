@@ -80,10 +80,12 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
+      body: _showQuickCreator
+          ? SingleChildScrollView(
+              child: Column(
+                children: [
 
-          Card(
+                  Card(
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -164,92 +166,170 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
           ),
 
 
-          if (_showQuickCreator)
-            Expanded(
-              child: SingleChildScrollView(
-                child: QuickQuizCreator(
-                  classModel: widget.classModel,
-                  onQuizCreated: () {
-                    _loadQuizzes();
-                    setState(() {
-                      _showQuickCreator = false;
-                    });
-                  },
-                  onCancel: () {
-                    setState(() {
-                      _showQuickCreator = false;
-                    });
-                  },
-                ),
+          QuickQuizCreator(
+                    classModel: widget.classModel,
+                    onQuizCreated: () {
+                      _loadQuizzes();
+                      setState(() {
+                        _showQuickCreator = false;
+                      });
+                    },
+                    onCancel: () {
+                      setState(() {
+                        _showQuickCreator = false;
+                      });
+                    },
+                  ),
+                ],
               ),
             )
-          else
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: ListTile(
-                leading: Icon(
-                  Icons.auto_awesome,
-                  color: Theme.of(context).primaryColor,
-                ),
-                title: const Text('Швидке створення тесту'),
-                subtitle: const Text('Завантажте файл і створіть тест з ШІ'),
-                trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () {
-                  setState(() {
-                    _showQuickCreator = true;
-                  });
-                },
-              ),
-            ),
-
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          : Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
+
+                Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.school,
+                              color: Theme.of(context).primaryColor,
+                              size: 28,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                widget.classModel.name,
+                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.key,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              const SizedBox(width: 8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Код доступу',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.classModel.accessCode,
+                                    style: const TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                icon: const Icon(Icons.copy),
+                                onPressed: _copyAccessCode,
+                                tooltip: 'Копіювати код доступу',
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Студенти можуть приєднатися до класу використовуючи код доступу вище.',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.auto_awesome,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    title: const Text('Швидке створення тесту'),
+                    subtitle: const Text('Завантажте файл і створіть тест з ШІ'),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                    onTap: () {
+                      setState(() {
+                        _showQuickCreator = true;
+                      });
+                    },
+                  ),
+                ),
+
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Вікторини',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Вікторини',
+                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const Spacer(),
+                            TextButton.icon(
+                              onPressed: () {
+                                setState(() {
+                                  _showQuickCreator = true;
+                                });
+                              },
+                              icon: const Icon(Icons.auto_awesome),
+                              label: const Text('ШІ тест'),
+                            ),
+                            const SizedBox(width: 8),
+                            TextButton.icon(
+                              onPressed: _createQuiz,
+                              icon: const Icon(Icons.add),
+                              label: const Text('Вручну'),
+                            ),
+                          ],
                         ),
                       ),
-                      const Spacer(),
-                      if (!_showQuickCreator) ...[
-                        TextButton.icon(
-                          onPressed: () {
-                            setState(() {
-                              _showQuickCreator = true;
-                            });
-                          },
-                          icon: const Icon(Icons.auto_awesome),
-                          label: const Text('ШІ тест'),
-                        ),
-                        const SizedBox(width: 8),
-                      ],
-                      TextButton.icon(
-                        onPressed: _createQuiz,
-                        icon: const Icon(Icons.add),
-                        label: const Text('Вручну'),
+                      Expanded(
+                        child: _isLoading
+                            ? const Center(child: CircularProgressIndicator())
+                            : _quizzes.isEmpty
+                                ? _buildEmptyQuizzesState()
+                                : _buildQuizzesList(),
                       ),
                     ],
                   ),
                 ),
-                Expanded(
-                  child: _isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : _quizzes.isEmpty
-                          ? _buildEmptyQuizzesState()
-                          : _buildQuizzesList(),
-                ),
               ],
             ),
-          ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _createQuiz,
         icon: const Icon(Icons.quiz),
