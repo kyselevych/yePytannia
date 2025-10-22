@@ -386,7 +386,7 @@ class DatabaseService {
     try {
       // Call Edge Function to complete quiz and calculate score
       await _client.functions.invoke(
-        'submit-quiz',
+        'complete-quiz-session',
         body: {'sessionId': sessionId},
       );
 
