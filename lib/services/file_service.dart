@@ -60,7 +60,7 @@ class FileService {
   }) async {
     try {
       final response = await _client.functions.invoke(
-        'generate-questions',
+        'generate-quiz-from-file',
         body: {
           'fileUrl': fileUrl,
           'quizId': quizId,
